@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Malika AI Monitoring</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0d1117;
+        --panel: #151b23;
+        --panel-soft: #1f2733;
+        --border: #303846;
+        --text: #eef3f8;
+        --muted: #9aa7b6;
+        --green: #38d996;
+        --blue: #69a7ff;
+        --yellow: #ffd166;
+        --red: #ff6b6b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 32px 0;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .mark {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--panel);
+        color: var(--blue);
+        font-weight: 800;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 22px;
+        line-height: 1.2;
+      }
+
+      .subtitle,
+      .metric-label,
+      .log-line {
+        color: var(--muted);
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 34px;
+        padding: 0 12px;
+        border: 1px solid rgba(56, 217, 150, 0.32);
+        border-radius: 999px;
+        background: rgba(56, 217, 150, 0.1);
+        color: var(--green);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .card {
+        min-height: 126px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .metric-value {
+        margin-top: 12px;
+        font-size: 30px;
+        font-weight: 800;
+        line-height: 1;
+      }
+
+      .metric-note {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .main-panel {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      .section-title {
+        margin-bottom: 14px;
+        font-size: 16px;
+      }
+
+      .log-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .log-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 8px;
+        background: var(--panel-soft);
+        font-size: 14px;
+      }
+
+      .tag {
+        color: var(--blue);
+        font-weight: 700;
+      }
+
+      .checklist {
+        display: grid;
+        gap: 12px;
+      }
+
+      .check-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .check-item:last-child {
+        border-bottom: 0;
+      }
+
+      .ok {
+        color: var(--green);
+        font-weight: 800;
+      }
+
+      .warn {
+        color: var(--yellow);
+        font-weight: 800;
+      }
+
+      @media (max-width: 860px) {
+        .topbar,
+        .main-panel {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 560px) {
+        .shell {
+          width: min(100% - 20px, 1120px);
+          padding: 20px 0;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .log-line {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="mark">M</div>
+          <div>
+            <h1>Malika AI Backend Monitoring</h1>
+            <p class="subtitle">api.texnoo.com service overview</p>
+          </div>
+        </div>
+        <div class="status-pill"><span class="dot"></span>Operational</div>
+      </header>
+
+      <section class="grid" aria-label="Service metrics">
+        <article class="card">
+          <p class="metric-label">Service</p>
+          <p class="metric-value">API</p>
+          <p class="metric-note">FastAPI core</p>
+        </article>
+        <article class="card">
+          <p class="metric-label">CORS</p>
+          <p class="metric-value">2</p>
+          <p class="metric-note">Allowed origins</p>
+        </article>
+        <article class="card">
+          <p class="metric-label">Auth</p>
+          <p class="metric-value">JWT</p>
+          <p class="metric-note">Bearer sessions</p>
+        </article>
+        <article class="card">
+          <p class="metric-label">Logs</p>
+          <p class="metric-value">ON</p>
+          <p class="metric-note">app_monitoring.log</p>
+        </article>
+      </section>
+
+      <section class="main-panel">
+        <article class="card">
+          <h2 class="section-title">Recent System Signals</h2>
+          <div class="log-list">
+            <div class="log-line">
+              <span><span class="tag">INFO</span> Health endpoint ready</span>
+              <span>/health</span>
+            </div>
+            <div class="log-line">
+              <span><span class="tag">INFO</span> Google auth route configured</span>
+              <span>/api/v1/auth/google</span>
+            </div>
+            <div class="log-line">
+              <span><span class="tag">INFO</span> AI generation route protected</span>
+              <span>/api/v1/ai/generate</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="card">
+          <h2 class="section-title">Security Checklist</h2>
+          <div class="checklist">
+            <div class="check-item">
+              <span>Restricted CORS origins</span>
+              <span class="ok">OK</span>
+            </div>
+            <div class="check-item">
+              <span>Bearer token required</span>
+              <span class="ok">OK</span>
+            </div>
+            <div class="check-item">
+              <span>Production JWT secret</span>
+              <span class="warn">ENV</span>
+            </div>
+            <div class="check-item">
+              <span>Google client validation</span>
+              <span class="warn">ENV</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>
